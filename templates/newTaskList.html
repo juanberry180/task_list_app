@@ -1,0 +1,35 @@
+{% from "bootstrap5/form.html" import render_form %}
+{% include "header.html" %}
+
+<div class="container">
+    <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-start-">
+        {{ render_form(form, novalidate=True) }}
+    </div>
+</div>
+<table class="table table-striped mx-auto" style="width: 80%;">
+    <h2 class="text-center my-4">{{ task_list_name }}</h2>
+    <thead>
+    <tr>
+        <th scope="col">Number</th>
+        <th scope="col">Task name</th>
+        <th scope="col">Change status</th>
+        <th scope="col">Remove tasks</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for task in all_tasks %}
+    <tr>
+        <td>{{ task.id }}</td>
+        {% if task.task_done: %}
+        <td class="text-decoration-line-through">{{ task.task_text }}</td>
+        {% else %}
+        <td>{{ task.task_text }}</td>
+        {% endif %}
+        <td><a href="{{url_for('done_task', task_id=task.id)}}" class="btn btn-primary btn-sm">Done</a></td>
+        <td><a href="{{url_for('delete_task', task_id=task.id)}}" class="btn btn-primary btn-sm">Remove</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% include "footer.html" %}

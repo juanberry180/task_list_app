@@ -1,0 +1,27 @@
+{% include "header.html" %}
+
+<table class="table table-striped mx-auto" style="width: 80%;">
+    <h2 class="text-center my-4">List of task lists</h2>
+    <thead>
+    <tr>
+        <th scope="col">Number</th>
+        <th scope="col">List name</th>
+        <th scope="col">Link</th>
+        <th scope="col">Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for list in task_list: %}
+    <tr>
+        <td>{{ list.id }}</td>
+        <td>{{ list.task_list_name }}</td>
+        <td><a href="{{ url_for('newTaskList', task_list_name=list.task_list_name)}}" class="btn btn-primary btn-sm">Go to list</a></td>
+        <td><a href="{{ url_for('delete_list', list_id=list.id )}}" class="btn btn-primary btn-sm">Delete list</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+
+{% include "footer.html" %}
+
